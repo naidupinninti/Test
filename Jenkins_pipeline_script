@@ -1,0 +1,45 @@
+pipeline {
+	agent any
+	stages {
+		stage('Git-Checkout') {
+			steps {
+				echo "Checking out from Git repo";
+				git branch: 'main', url: 'https://github.com/naidupinninti/Test.git'
+			}
+		}
+
+		stage('Build') {
+			steps {
+				echo "Running Build";
+				bat 'First_Job'
+			}
+		}
+
+		stage('Testing') {
+			steps {
+				echo "Running test cases";
+				bat 'Second_Job'
+				
+			}
+		}
+
+		stage('Quality-Check') {
+			steps {
+				echo "Running quality checks";
+				bat 'Third_Job'
+			}
+		}
+		stage('Deploy') {
+			steps {
+				echo "Running Deployment";
+				bat 'Deploy'
+			}
+		}
+		stage('Post-Actions') {
+			steps {
+				echo "Running post actions";
+				bat 'Post_Actions'
+			}
+		}
+	}
+}
